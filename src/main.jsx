@@ -2,10 +2,10 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
-const logo = mediaUrl('logo-un-enfant-un-sourire.jpeg');
 const basePath = import.meta.env.BASE_URL;
 const routeUrl = (path) => `${basePath}#${path}`;
 const mediaUrl = (path) => `${basePath}media/${path}`;
+const logo = mediaUrl('logo-un-enfant-un-sourire.jpeg');
 function currentPath() {
   if (location.hash) return location.hash.slice(1);
   const path = location.pathname.startsWith(basePath) ? `/${location.pathname.slice(basePath.length)}` : location.pathname;
