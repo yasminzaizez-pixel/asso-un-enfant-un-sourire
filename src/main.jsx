@@ -3,7 +3,9 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 const basePath = import.meta.env.BASE_URL;
-const routeUrl = (path) => `${basePath}#${path}`;
+const routeUrl = (path) => path === '/'
+  ? basePath
+  : `${basePath}${path.replace(/^\/+|\/+$/g, '')}/`;
 const mediaUrl = (path) => `${basePath}media/${path}`;
 const logo = mediaUrl('logo-un-enfant-un-sourire.jpeg');
 function currentPath() {
@@ -103,6 +105,6 @@ function OpeningAnimation({ onComplete }) {
   </div>;
 }
 
-function App() { const [path, setPath] = React.useState(currentPath); const pages = {'/': Home, '/mission': Mission, '/actions': Actions, '/terrain': Terrain, '/association': Association, '/contact': Contact, '/don': Donation}; const Component = pages[path] || Home; const [showOpening, setShowOpening] = React.useState(() => !sessionStorage.getItem('un-enfant-intro-vue') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches); React.useEffect(() => { const updatePath = () => setPath(currentPath()); window.addEventListener('hashchange', updatePath); return () => window.removeEventListener('hashchange', updatePath); }, []); const closeOpening = () => { sessionStorage.setItem('un-enfant-intro-vue', '1'); setShowOpening(false); }; return <><Component />{showOpening && <OpeningAnimation onComplete={closeOpening} />}</>; }
+function App() { const [path, setPath] = React.useState(currentPath); const pages = {'/': Home, '/mission': Mission, '/actions': Actions, '/terrain': Terrain, '/association': Association, '/contact': Contact, '/don': Donation}; const Component = pages[path] || Home; const [showOpening, setShowOpening] = React.useState(() => !sessionStorage.getItem('un-enfant-intro-vue') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches); React.useEffect(() => { const updatePath = () => setPath(currentPath()); window.addEventListener('popstate', updatePath); window.addEventListener('hashchange', updatePath); return () => { window.removeEventListener('popstate', updatePath); window.removeEventListener('hashchange', updatePath); }; }, []); const closeOpening = () => { sessionStorage.setItem('un-enfant-intro-vue', '1'); setShowOpening(false); }; return <><Component />{showOpening && <OpeningAnimation onComplete={closeOpening} />}</>; }
 
 createRoot(document.getElementById('root')).render(<App />);
