@@ -13,3 +13,8 @@
 - [x] Intégrer des animations modernes et discrètes sans nuire à la lisibilité.
 
 - [x] Ajouter un parcours de don mobile-first avec Orange Money et Moov Money, sans collecte de code secret.
+
+## Référencement naturel
+- [x] Publier les pages avec des URL lisibles et distinctes, sans fragments dans les liens.
+- [x] Ajouter des titres, descriptions, URL canoniques et aperçus sociaux spécifiques aux pages.
+- [x] Générer les données structurées de l’association, un sitemap XML et un fichier robots.txt au build.
